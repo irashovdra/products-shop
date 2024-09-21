@@ -1,0 +1,22 @@
+.product {
+  width: 300px;
+  box-shadow: 2px 2px 5px 2px;
+  padding: 20px;
+  text-align: left;
+}
+
+.product__description {
+  width: 100%;
+  word-wrap: break-word;
+}
+
+.product__photo {
+  width: 100px;
+  height: 100px;
+}
+
+.body {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+}
