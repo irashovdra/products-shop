@@ -1,5 +1,3 @@
-
-
 export const addPost = (post) => {
   const options = {
     method: "POST",
