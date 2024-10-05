@@ -13,5 +13,7 @@ export const createCard = ({
       <p class="product__quantity">${quantity}</p>
       <img src="${photo}" alt="${productName}" class="product__photo">
       <p class="product__description">${description}</p>
+      <button class="delete__btn" id="${id}" type="button">Delete</button>
+      <button class="update__btn" id="${id}" type="button">Update</button>
     </li>`;
 };

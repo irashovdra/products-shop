@@ -2,6 +2,7 @@ import { addPost } from "../api/addProduct";
 import { getProducts } from "../api/getProducts";
 import { createProductList } from "./createProductList";
 const body = document.querySelector("body");
+
 export const getDataFromAddModal = (event) => {
   event.preventDefault();
   const idValue = event.target.elements.name.id;

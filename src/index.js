@@ -4,3 +4,4 @@ import "./js/app";
 import "./js/layout/form";
 import "./js/layout/createCard";
 import "./js/layout/createProductList";
+import "./js/layout/update-form";
