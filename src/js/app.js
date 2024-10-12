@@ -1,9 +1,7 @@
-import { deleteProduct } from "./api/deleteProduct";
 import { getProducts } from "./api/getProducts";
 import { createProductList } from "./layout/createProductList";
 import { getDataFromAddModal } from "./layout/form";
 import { deleteProduct } from "./api/deleteProduct";
-import { updateProduct } from "./api/updateProduct";
 import { getDataFromUpdateForm } from "./layout/update-form";
 const body = document.querySelector("body");
 const form = document.querySelector(".form");
