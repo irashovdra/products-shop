@@ -1,7 +1,7 @@
 import { updateProduct } from "../api/updateProduct";
 import { getProducts } from "../api/getProducts";
 import { createProductList } from "./createProductList";
-const body = document.querySelector("body");
+const productsList = document.querySelector(".products");
 
 export const getDataFromUpdateForm = (event) => {
   event.preventDefault();
@@ -19,7 +19,15 @@ export const getDataFromUpdateForm = (event) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
+      getProducts()
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          const product = createProductList(data);
+          productsList.innerHTML = product;
+        });
     });
   getProducts()
     .then((response) => {
@@ -28,7 +36,7 @@ export const getDataFromUpdateForm = (event) => {
     .then((data) => {
       console.log(data);
       const product = createProductList(data);
-      body.insertAdjacentHTML("beforeend", product);
+      productsList.innerHTML = product;
     })
     .catch((error) => {
       console.error("Error", error);

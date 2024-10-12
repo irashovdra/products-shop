@@ -15,7 +15,7 @@
   height: 100px;
 }
 
-.body {
+.products {
   display: flex;
   gap: 30px;
   flex-wrap: wrap;

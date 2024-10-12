@@ -1,11 +1,11 @@
 import { addPost } from "../api/addProduct";
 import { getProducts } from "../api/getProducts";
 import { createProductList } from "./createProductList";
-const body = document.querySelector("body");
+const productsList = document.querySelector(".products");
 
 export const getDataFromAddModal = (event) => {
   event.preventDefault();
-  const idValue = event.target.elements.name.id;
+  const idValue = event.target.elements.id.value;
   const nameValue = event.target.elements.name.value;
   const priceValue = event.target.elements.price.value;
   const quantityValue = event.target.elements.quantity.value;
@@ -19,18 +19,41 @@ export const getDataFromAddModal = (event) => {
     photo: photoValue,
     description: descriptionValue,
   };
-  addPost(newProduct);
+
   getProducts()
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      console.log(data);
-      const product = createProductList(data);
-      body.insertAdjacentHTML("beforeend", product);
+      let idExists = false;
+      data.forEach((product) => {
+        if (product.id === newProduct.id) {
+          idExists = true;
+        }
+      });
+      if (idExists) {
+        alert("Id exists");
+      } else {
+        addPost(newProduct)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            getProducts()
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                console.log(data);
+                const product = createProductList(data);
+                productsList.innerHTML = product;
+              });
+          });
+      }
     })
     .catch((error) => {
       console.error("Error", error);
     });
+
   return newProduct;
 };

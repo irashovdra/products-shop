@@ -3,7 +3,7 @@ import { createProductList } from "./layout/createProductList";
 import { getDataFromAddModal } from "./layout/form";
 import { deleteProduct } from "./api/deleteProduct";
 import { getDataFromUpdateForm } from "./layout/update-form";
-const body = document.querySelector("body");
+const productsList = document.querySelector(".products");
 const form = document.querySelector(".form");
 const updateForm = document.querySelector(".update-form");
 
@@ -13,20 +13,47 @@ getProducts()
   })
   .then((data) => {
     const product = createProductList(data);
-    body.insertAdjacentHTML("beforeend", product);
+    productsList.innerHTML = product;
 
-    const deleteBtn = document.querySelector(".delete__btn");
-    deleteBtn.addEventListener("click", (event) => {
-      const id = event.target.id;
-      console.log(id);
-      deleteProduct(id)
-        .then(() => console.log("Post deleted"))
-        .catch((error) => console.log("Error:", error));
-    });
+    
   })
   .catch((error) => {
     console.error("Error", error);
   });
+
+const deleteProductFromList = async() => {
+    const deleteBtns = document.querySelectorAll(".delete__btn");
+    deleteBtns.forEach((deleteBtn) => {
+      deleteBtn.addEventListener("click", (event) => {
+        const id = event.target.id;
+        deleteProduct(id)
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            getProducts()
+              .then((response) => {
+                return response.json();
+              })
+              .then((data) => {
+                console.log(data);
+                const product = createProductList(data);
+                productsList.innerHTML = product;
+              });
+          });
+        getProducts()
+          .then((response) => {
+            return response.json();
+          })
+          .then((data) => {
+            console.log(data);
+            const product = createProductList(data);
+            productsList.innerHTML = product;
+          })
+          .catch((error) => console.log("Error:", error));
+      });
+    });
+  }
 
 form.addEventListener("submit", getDataFromAddModal);
 
