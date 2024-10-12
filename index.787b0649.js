@@ -1,0 +1,11 @@
+const e=()=>fetch("http://localhost:3000/products"),t=e=>fetch("http://localhost:3000/products",{method:"POST",body:JSON.stringify(e),headers:{"Content-Type":"application/json; charset=UTF-8"}}),o=({id:e,productName:t,price:o,quantity:n,photo:r,description:s})=>`<li class="product">
+   <p class="product__id">${e}</p>
+      <h2 class="product__name">${t}</h2>
+      <p class="product__price">${o}</p>
+      <p class="product__quantity">${n}</p>
+      <img src="${r}" alt="${t}" class="product__photo">
+      <p class="product__description">${s}</p>
+      <button class="delete__btn" id="${e}" type="button">Delete</button>
+      <button class="update__btn" id="${e}" type="button">Update</button>
+    </li>`,n=e=>e.map(e=>o(e)).join(""),r=document.querySelector(".products"),s=(e,t)=>{let o={method:"PUT",body:JSON.stringify(t),headers:{"Content-Type":"application/json; charset=UTF-8"}};return console.log(e,t),fetch(`http://localhost:3000/products/${e}`,o)},c=document.querySelector(".products"),l=document.querySelector(".products"),a=document.querySelector(".form"),p=document.querySelector(".update-form");e().then(e=>e.json()).then(e=>{let t=n(e);l.innerHTML=t}).catch(e=>{console.error("Error",e)}),a.addEventListener("submit",o=>{o.preventDefault();let s=o.target.elements.id.value,c=o.target.elements.name.value,l=o.target.elements.price.value,a={id:s,productName:c,price:l,quantity:o.target.elements.quantity.value,photo:o.target.elements.photo.value,description:o.target.elements.description.value};return e().then(e=>e.json()).then(o=>{let s=!1;o.forEach(e=>{e.id===a.id&&(s=!0)}),s?alert("Id exists"):t(a).then(e=>e.json()).then(t=>{e().then(e=>e.json()).then(e=>{console.log(e);let t=n(e);r.innerHTML=t})})}).catch(e=>{console.error("Error",e)}),a}),p.addEventListener("submit",t=>{t.preventDefault();let o={id:t.target.elements.id.value,productName:t.target.elements.name.value,price:t.target.elements.price.value,photo:t.target.elements.photo.value,quantity:t.target.elements.quantity.value,description:t.target.elements.description.value};return s(o.id,o).then(e=>e.json()).then(t=>{e().then(e=>e.json()).then(e=>{console.log(e);let t=n(e);c.innerHTML=t})}),e().then(e=>e.json()).then(e=>{console.log(e);let t=n(e);c.innerHTML=t}).catch(e=>{console.error("Error",e)}),o});
+//# sourceMappingURL=index.787b0649.js.map
